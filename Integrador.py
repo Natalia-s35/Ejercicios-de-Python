@@ -1,14 +1,14 @@
 
-#Ingreso de los datos de los alumnos y los agregamos a la lista vacia "l"
+#Ingreso de los datos de los alumnos
 def ingresar_datos():
   l = []
-  nombre = input("Ingrese el nombre: ")
+  nombre = input("Ingrese el nombre: ").lower()
   while nombre != "fin":
-    apellido = input("Ingrese el apellido: ")
+    apellido = input("Ingrese el apellido: ").lower()
     mail = input("Ingrese el mail: ")
     direccion = input("Ingrese la dirección del alumno: ")
-    orquesta = input("Ingrese el nombre de la orquesta a la que pertenece: ")
-    instrumento_propio = input("Si cuenta con instrumento propio (s/si) o no (n/no): ")
+    orquesta = input("Ingrese el nombre de la orquesta a la que pertenece: ").lower()
+    instrumento_propio = input("Si cuenta con instrumento propio (s/si) o no (n/no): ").lower()
     edad = int(input("Ingrese la edad: "))
     legajo = int(input("Ingrese el número de legajo: "))
     alumno = [nombre, apellido, mail, direccion, orquesta, instrumento_propio, edad, legajo]
@@ -17,12 +17,11 @@ def ingresar_datos():
     nombre = input("Ingrese el nombre: ")
   return l
 
-
 #Cantidad de alumnos que no cuentan con instrumento propio:
 def instrumentos_no_propio(l):
   cont = 0
   for a in l: #uso de la estructura for para recorrer la lista
-    if a[5] == "n":
+    if a[5] == "n" or a[5] == "no":
         cont = cont + 1
   return cont
 
@@ -39,30 +38,16 @@ def promedio_edades_inicial(l):
   else:
       return 0
     
+#funcion general para calcular la cantidad de alumnos por la orquesta solicitada por el usuario
+def calcular_cantidad(l, orquesta):
+   cant = 0
+   for a in l:
+      if a[4] == orquesta:
+         cant = cant + 1
+      else:
+         print("La orquesta solicitada no existe.")
+   return cant
 
-#cantidad de alumnos en la orquesta sinfonica
-def cantidad_sinfonica(l):
-  cant = 0
-  for a in l:
-    if a[4] == "sinfonica":
-      cant = cant + 1
-  return cant
-  
-#Cantidad de alumnos en la orquesta infanto juvenil
-def cantidad_infanto(l):
-  cant = 0
-  for a in l:
-    if a[4] == "infanto juvenil":
-      cant = cant + 1
-  return cant
-  
-#Cantidad de alumnos en la orquesta inicial
-def cantidad_inicial(l):
-  cant = 0
-  for a in l:
-    if a[4] == "inicial":
-      cant = cant + 1
-  return cant
 
 #El alumno con menor edad
 def menor_edad(l):
@@ -86,66 +71,91 @@ def buscar_dato(l, n):
     if a[7] == n:
       print("Apellido: ", a[1])
       print("Orquesta: ", a[4])
+    else:
+       print("No existe el número de legajo")
 
 
-print("------Bienvenidos al sistema de Escuela Orquesta 501------")
-print("Menú")
-print("1.Calcular la cantidad de alumnos que no cuentan con instrumento propio")
-print("2.Calcular el promedio de los alumnos de la orquesta inicial")
-print("3.Cantidad de alumnos de la orquesta sinfónica")
-print("4.Cantidad de alumnos de la orquesta infanto juvenil")
-print("5.Cantidad de alumnos de la orquesta inicial")
-print("6.Alumno de mayor edad")
-print("7.Alumno de menor edad")
-print("8.Buscar apellido y orquesta del alumno con el número de legajo")
-print("9.Salir")
+def exportar_datos_excel():
+   
+    #Importamos la librería Pandas de Python
+    import pandas as pd
+
+    #Creamos el dataframe a partir de la lista de datos de los alumnos y asignamos el nombre de cada columna
+    df = pd.DataFrame(datos, columns = ["Nombre", "Apellido", "Mail", "Direccion", "Orquesta", "Instrumento", "Edad", "Legajo"])
+
+    #Uso del  método .to_excel sobre el dataframe e incluimos la ruta donde queremos que se encuentre el archivo excel con el nombre
+    df.to_excel("C:/Users/PC/Desktop/practica/ejemplo.xlsx", index = False)
+
+    print("Proceso finalizado.")
+
+print("-"*300)
+print("Bienvenidos al sistema de Escuela Orquesta 501")
+
+print()
+
+def opciones_menu():
+    print("Menú")
+    print("1.Calcular la cantidad de alumnos que no cuentan con instrumento propio")
+    print("3.Calcular el promedio de los alumnos de la orquesta inicial")
+    print("4.Cantidad de alumnos de una de las orquestas ")
+    print("5.Alumno de mayor edad")
+    print("6.Alumno de menor edad")
+    print("7.Buscar apellido y orquesta del alumno con el número de legajo")
+    print("8.Salir")
+    print()
 
 datos = ingresar_datos()
-print(datos)
 
-opcion = int(input("Ingrese una opción: "))
-
-while opcion != 9:
-  if opcion == 1:
-    p = instrumentos_no_propio(datos)
-    print("La cantidad de alumnos que no cuentan con instrumentos son: " + str(p))
-  elif opcion == 2:
-    inicial = promedio_edades_inicial(datos)
-    print("El promedio de las edades de los alumnos de la orquesta inicial es: ", inicial)
-  elif opcion == 3:
-    cant_s= cantidad_sinfonica(datos)
-    print("En la Orquesta sinfónica hay: " + str(cant_s) + " cantidad de alumnos.")
-  elif opcion == 4:
-    cant_infanto = cantidad_infanto(datos)
-    print("En la Orquesta infanto juvenil hay: " + str(cant_infanto) + " cantidad de alumnos.")
-  elif opcion == 5:
-    cant_inicial = cantidad_inicial(datos)
-    print("En la Orquesta inicial " + str(cant_inicial) + " cantidad de alumnos.")
-  elif opcion == 6:
-    mayor = mayor_edad(datos)
-    print("El alumno de mayor edad tiene: " + str(mayor) + " años.")
-  elif opcion == 7:
-    menor = menor_edad(datos)
-    print("El alumno de mayor edad tiene: " + str(menor) + " años.")
-  elif opcion == 8:
-    num = int(input("Ingrese el número del legajo del alumno: "))
-    buscar_dato(datos, num)
-  else:
-    print("Opción incorrecta.")
+def menu():
+  
+  opciones_menu()
 
   opcion = int(input("Ingrese una opción: "))
 
+  while opcion != 8:
+
+    if opcion == 1:
+        p = instrumentos_no_propio(datos)
+        print("La cantidad de alumnos que no cuentan con instrumentos son: " + str(p))
+        print()
+
+    elif opcion == 2:
+        inicial = promedio_edades_inicial(datos)
+        print("El promedio de las edades de los alumnos de la orquesta inicial es: ", inicial)
+        print()
+
+    elif opcion == 3:
+        orq = input("Ingrese el nombre de la orquesta: ")
+        cantidad= calcular_cantidad(datos, orq)
+        print("En la Orquesta " + orq + " tiene "  + str(cantidad) + " alumnos.")
+        print()
+
+    elif opcion == 4:
+        mayor = mayor_edad(datos)
+        print("El alumno de mayor edad tiene: " + str(mayor) + " años.")
+        print()
+
+    elif opcion == 5:
+        menor = menor_edad(datos)
+        print("El alumno de mayor edad tiene: " + str(menor) + " años.")
+        print()
+
+    elif opcion == 6:
+        num = int(input("Ingrese el número del legajo del alumno: "))
+        buscar_dato(datos, num)
+        print()
+        
+    elif opcion == 7:
+       exportar_datos_excel()
+       print()
+    else:
+        print("La Opción ingresada es incorrecta.")
+
+    opciones_menu()
+
+    opcion = int(input("Ingrese una opción: "))
+
+menu()
+
+print("-"*300)
 print("El programa ha finalizado.")
-
- 
-
-#Importamos la librería Pandas de Python
-import pandas as pd
-
-#Creamos el dataframe a partir de la lista de datos de los alumnos y asignamos el nombre de cada columna
-df = pd.DataFrame(datos, columns = ["Nombre", "Apellido", "Mail", "Direccion", "Orquesta", "Instrumento", "Edad", "Legajo"])
-
-#Uso del  método .to_excel sobre el dataframe e incluimos la ruta donde queremos que se encuentre el archivo excel con el nombre
-df.to_excel("C:/Users/PC/Desktop/practica/ejemplo.xlsx", index = False)
-
-print(df)

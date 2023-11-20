@@ -43,6 +43,8 @@ def calcular_cantidad(l, orquesta):
    for a in l:
       if a[4] == orquesta:
          cant = cant + 1
+      else:
+         print("La orquesta solicitada no existe.")
    return cant
 
 
@@ -85,7 +87,7 @@ def exportar_datos_excel():
 
     print("Proceso finalizado.")
 
-print("-"*150)
+print("-"*300)
 print("Bienvenidos al sistema de Escuela Orquesta 501")
 
 print()
@@ -148,4 +150,5 @@ def menu():
 
 menu()
 
+print("-"*300)
 print("El programa ha finalizado.")
