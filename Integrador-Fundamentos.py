@@ -83,9 +83,9 @@ def exportar_datos_excel():
 
     print("Proceso finalizado.")
 
-print("-"*100)
-print("Bienvenidos al sistema de Escuela Orquesta 501")
-print("-"*100)
+print("-"*130)
+print("Bienvenido al sistema de Escuela Orquesta")
+print("-"*130)
 print()
 
 def opciones_menu():
@@ -148,8 +148,10 @@ def menu():
 
     opcion = int(input("Ingrese una opción: "))
 
+print()
 menu()
+print()
 
-print("-"*100)
+print("-"*130)
 print("El programa ha finalizado.")
-print("-"*100)
+print("-"*130)
