@@ -96,7 +96,7 @@ def opciones_menu():
     print("4.Alumno de mayor edad")
     print("5.Alumno de menor edad")
     print("6.Buscar apellido y orquesta del alumno con el número de legajo")
-    print("Exportar los datos de los alumnos a Excel")
+    print("7.Exportar los datos de los alumnos a Excel")
     print("8.Salir")
     print()
 
