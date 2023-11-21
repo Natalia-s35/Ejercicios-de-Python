@@ -43,8 +43,6 @@ def calcular_cantidad(l, orquesta):
    for a in l:
       if a[4] == orquesta:
          cant = cant + 1
-      else:
-         print("La orquesta solicitada no existe.")
    return cant
 
 
@@ -70,8 +68,6 @@ def buscar_dato(l, n):
     if a[7] == n:
       print("Apellido: ", a[1])
       print("Orquesta: ", a[4])
-    else:
-       print("No existe el número de legajo")
 
 
 def exportar_datos_excel():
@@ -87,19 +83,20 @@ def exportar_datos_excel():
 
     print("Proceso finalizado.")
 
-print("-"*300)
+print("-"*100)
 print("Bienvenidos al sistema de Escuela Orquesta 501")
-
+print("-"*100)
 print()
 
 def opciones_menu():
     print("Menú")
     print("1.Calcular la cantidad de alumnos que no cuentan con instrumento propio")
-    print("3.Calcular el promedio de los alumnos de la orquesta inicial")
-    print("4.Cantidad de alumnos de una de las orquestas ")
-    print("5.Alumno de mayor edad")
-    print("6.Alumno de menor edad")
-    print("7.Buscar apellido y orquesta del alumno con el número de legajo")
+    print("2.Calcular el promedio de los alumnos de la orquesta inicial")
+    print("3.Cantidad de alumnos de una de las orquestas ")
+    print("4.Alumno de mayor edad")
+    print("5.Alumno de menor edad")
+    print("6.Buscar apellido y orquesta del alumno con el número de legajo")
+    print("Exportar los datos de los alumnos a Excel")
     print("8.Salir")
     print()
 
@@ -123,8 +120,11 @@ def menu():
         print()
     elif opcion == 3:
         orq = input("Ingrese el nombre de la orquesta: ")
-        cantidad= calcular_cantidad(datos, orq)
-        print("En la Orquesta " + orq + " tiene "  + str(cantidad) + " alumnos.")
+        if orq == "inicial" or orq == "sinfonica" or orq == "infanto juvenil":
+          cantidad= calcular_cantidad(datos, orq)
+          print("En la Orquesta " + orq + " hay "  + str(cantidad) + " alumnos.")
+        else:
+           print("La orquesta solicitada no existe.")
         print()
     elif opcion == 4:
         mayor = mayor_edad(datos)
@@ -150,5 +150,6 @@ def menu():
 
 menu()
 
-print("-"*300)
+print("-"*100)
 print("El programa ha finalizado.")
+print("-"*100)
