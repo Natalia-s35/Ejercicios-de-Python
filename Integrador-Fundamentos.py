@@ -119,7 +119,7 @@ def menu():
         print("El promedio de las edades de los alumnos de la orquesta inicial es: ", inicial)
         print()
     elif opcion == 3:
-        orq = input("Ingrese el nombre de la orquesta: ")
+        orq = input("Ingrese el nombre de la orquesta: ").lower()
         if orq == "inicial" or orq == "sinfonica" or orq == "infanto juvenil":
           cantidad= calcular_cantidad(datos, orq)
           print("En la Orquesta " + orq + " hay "  + str(cantidad) + " alumnos.")
