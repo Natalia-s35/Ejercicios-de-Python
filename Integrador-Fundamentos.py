@@ -46,14 +46,6 @@ def calcular_cantidad(l, orquesta):
    return cant
 
 
-#El alumno con menor edad
-def menor_edad(l):
-  menor = 99999
-  for a in l:
-    if menor > a[6]:
-      menor = a[6]
-  return menor
-
 #El alumno con mayor edad
 def mayor_edad(l):
   mayor = -99999
@@ -61,6 +53,15 @@ def mayor_edad(l):
     if mayor < a[6]:
       mayor = a[6]
   return mayor
+
+
+#El alumno con menor edad
+def menor_edad(l):
+  menor = 99999
+  for a in l:
+    if menor > a[6]:
+      menor = a[6]
+  return menor
 
 #Buscar por número de legajo los datos del alumno (apellido y orquesta)
 def buscar_dato(l, n):
@@ -132,7 +133,7 @@ def menu():
         print()
     elif opcion == 5:
         menor = menor_edad(datos)
-        print("El alumno de mayor edad tiene: " + str(menor) + " años.")
+        print("El alumno de menor edad tiene: " + str(menor) + " años.")
         print()
     elif opcion == 6:
         num = int(input("Ingrese el número del legajo del alumno: "))
